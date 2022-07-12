@@ -1,0 +1,10 @@
+# ignore a single file
+nohup.out
+
+# ignore an entire directory
+/logs
+/datasets
+/checkpoints
+/__pycache__
+/*/__pycache__
+/*/*/__pycache__
