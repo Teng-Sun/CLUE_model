@@ -3,3 +3,5 @@ checkpoints/*
 **/__pycache__
 
 *.txt
+*.out
+*.ipynb
