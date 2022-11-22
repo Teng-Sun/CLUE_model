@@ -145,8 +145,8 @@ class Model_Carrier(object):
 
             print(best_ood_metrics)
             '''
-            if (best_ood_metrics['o1_metrics']['acc2_nonzero'] + best_ood_metrics['o1_metrics']['acc2']) / 2 > self.best_valid_acc2_loss:
-                self.best_valid_acc2_loss = (best_ood_metrics['o1_metrics']['acc2_nonzero'] + best_ood_metrics['o1_metrics']['acc2']) / 2
+            if (valid_metrics['o1_metrics']['acc2_nonzero'] + valid_metrics['o1_metrics']['acc2']) / 2 > self.best_valid_acc2_loss:
+                self.best_valid_acc2_loss = (valid_metrics['o1_metrics']['acc2_nonzero'] + valid_metrics['o1_metrics']['acc2']) / 2
                 self.best_metrics['o1'] = {
                     'valid_metrics': valid_metrics,
                     'iid_metrics': iid_metrics,

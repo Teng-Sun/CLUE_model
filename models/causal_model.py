@@ -21,10 +21,9 @@ class Causal_Model(nn.Module):
 
         self.size = 7
         # loss function
-        if self.size != 7:
+        if not self.config.soft_label:
             self.classify_criterion = nn.CrossEntropyLoss(reduction = "mean")
         else:
-            # self.classify_criterion = nn.L1Loss(reduction = "mean")
             self.classify_criterion = nn.KLDivLoss(reduction = "batchmean")
 
         # multimodel -- basemodel
@@ -37,7 +36,6 @@ class Causal_Model(nn.Module):
         else:
             raise NameError('No {} model can be found'.format(self.config.base_model))
         
-
         # multimodel -- textmodel
         rnn = nn.LSTM if self.config.tmodel_rnncell == "lstm" else nn.GRU
         self.trnn1 = rnn(self.embedding_size, self.embedding_size, bidirectional=True)

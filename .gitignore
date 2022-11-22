@@ -5,3 +5,6 @@ checkpoints/*
 *.txt
 *.out
 *.ipynb
+log_*
+
+test.py

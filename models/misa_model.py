@@ -147,6 +147,7 @@ class MISA(nn.Module):
         self.transformer_encoder = nn.TransformerEncoder(encoder_layer, num_layers=1)
 
     def extract_features(self, sequence, lengths, rnn1, rnn2, layer_norm):
+        lengths = lengths.cpu()
         packed_sequence = pack_padded_sequence(sequence, lengths)
 
         if self.config.misa_rnncell == "lstm":

@@ -69,21 +69,17 @@ def get_config(parse = True, **optional_kwargs):
 
     # Main config
     time_now = datetime.now().strftime('%Y-%m-%d_%H:%M:%S')
-
-    parser.add_argument('--split_rate', type=float, default=0.1)
-    parser.add_argument('--min_number', type=int, default=300)
-    parser.add_argument('--random_rate', type=float, default=1)
     
     parser.add_argument('--name', type=str, default=f"{time_now}")
     parser.add_argument('--model_index', type=int, default=0)
     parser.add_argument('--num_classes', type=int, default=0)
     parser.add_argument('--mode', type=str, default='train')
-    parser.add_argument('--gpu_id', type=int, default=0)
-    parser.add_argument('--base_model', type=str, default='selfmm_model')
+    parser.add_argument('--gpu_id', type=int, default=1)
+    parser.add_argument('--base_model', type=str, default='magbert_model')
     parser.add_argument('--datapath', type=str, default='/home/share/sunteng/CLUE_model/datasets')
     parser.add_argument('--model_savepath', type=str, default='./checkpoints')
     parser.add_argument('--optimizer', type=str, default='Adam')
-    parser.add_argument('--alpha_list', type=list, default=[3, 2.75, 2.5, 2.25, 2, 1.75, 1.5, 1.25, 1.0, 0])
+    parser.add_argument('--alpha_list', type=list, default=[3, 2.75, 2.5, 2.25, 2, 1.75, 1.5, 1.25, 1.0, 0.75, 0.5, 0.25, 0]) # 3, 2.75, 2.5, 2.25, 
     parser.add_argument('--output_size', type=int, default=2)
     parser.add_argument('--batch_size', type=int, default=16)
     parser.add_argument('--n_epoch', type=int, default=5)
@@ -103,25 +99,23 @@ def get_config(parse = True, **optional_kwargs):
     parser.add_argument('--tmodel_hidden_size', type=int, default=128)
     parser.add_argument('--tmodel_embedding_size', type=int, default=300)
     parser.add_argument('--tmodel_rnncell', type=str, default='lstm')
-    parser.add_argument('--tmodel_learning_rate', type=float, default=3e-5)
+    parser.add_argument('--tmodel_learning_rate', type=float, default=1e-5)
     parser.add_argument('--tmodel_weight_decay', type=float, default=1e-5)
 
     # MISA config
     parser.add_argument('--misa_rnncell', type=str, default='lstm')
     parser.add_argument('--misa_activation', type = str, default='relu')
     parser.add_argument('--misa_embedding_size', type=int, default=300)
-    
     parser.add_argument('--misa_use_bert', type=str2bool, default=True)
     parser.add_argument('--misa_diff_weight', type=float, default=0.3)
     parser.add_argument('--misa_recon_weight', type=float, default=1.0)
     parser.add_argument('--misa_hidden_size', type=int, default=128)
     parser.add_argument('--misa_dropout', type=float, default=0.5)
-
     parser.add_argument('--misa_use_cmd_sim', type=str2bool, default=True)
     parser.add_argument('--misa_sim_weight', type=float, default=1.0)
     parser.add_argument('--misa_sp_weight', type=float, default=0.0)
     parser.add_argument('--misa_reverse_grad_weight', type=float, default=1.0)
-    parser.add_argument('--misa_learning_rate', type=float, default=5e-5)
+    parser.add_argument('--misa_learning_rate', type=float, default=1e-5)
     parser.add_argument('--misa_weight_decay', type=float, default=1e-5)
 
     # SELF-MM config
@@ -140,6 +134,12 @@ def get_config(parse = True, **optional_kwargs):
     parser.add_argument('--magbert_dropout', type=float, default=0.3)
     parser.add_argument('--magbert_learning_rate', type=float, default=1e-5)
     parser.add_argument('--magbert_weight_decay', type=float, default=0)
+    
+    # extra, no need to change
+    parser.add_argument('--split_rate', type=float, default=1)
+    parser.add_argument('--min_number', type=int, default=300)
+    parser.add_argument('--random_rate', type=float, default=1)
+    parser.add_argument('--soft_label', type=float, default=False)
 
     # Parse arguments
     if parse:

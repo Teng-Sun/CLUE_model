@@ -79,6 +79,12 @@ def get_ban_list(data, train_config):
     print(all_number, ban_number)
     return ban_word_dict
 
+def init():
+    if not os.path.exists('./checkpoints'):
+        os.makedirs('./checkpoints')
+    if not os.path.exists('./logs'):
+        os.makedirs('./logs')
+
 random_seed_list = [223, 123, 323]
 
 if __name__ == '__main__':
@@ -98,7 +104,8 @@ if __name__ == '__main__':
 
     # 获取抹除词表
     ban_word_list = get_ban_list(data, train_config)
-
+    ban_word_list = []
+    
     acc2_nonzero_list = []
     acc2_list = []
     acc7_list = []
