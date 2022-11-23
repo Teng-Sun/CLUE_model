@@ -16,7 +16,7 @@ if '7classes' in data_name:
     output_size = 7
 else: output_size = 2
 
-run_name = 'log_0005'
+run_name = 'log_magbert_lr'
 
 normal_string = 'nohup python train.py --data {} --dataset_name {} --base_model {} --output_size {} --gpu_id 2'.format(data, data_name, model_name, output_size)
 
@@ -34,7 +34,7 @@ misa_recon_weight =         [('misa_recon_weight', i) for i in          [1.0, 0.
 batch_size =                [('batch_size', i) for i in                 [16, 24]]
 
 magbert_dropout =           [('magbert_dropout', i) for i in            [0.1, 0.3, 0.5]]
-magbert_learning_rate =     [('magbert_learning_rate', i) for i in      [1e-5, 2e-5]]
+magbert_learning_rate =     [('magbert_learning_rate', i) for i in      [1e-5, 2e-5, 3e-5, 4e-5, 5e-5, 6e-5, 7e-5, 8e-5, 9e-5, 1e-4]]
 magbert_weight_decay =      [('magbert_weight_decay', i) for i in       [0, 1e-5]]
 magbert_beta_shift =        [('magbert_beta_shift', i) for i in         [0.5, 1.5, 2]]
 
@@ -49,13 +49,13 @@ random_rate =               [('random_rate', i) for i in                [0, 0.5,
 variance =                  [('variance', i) for i in                   [0.1]]
 
 
-tmodel_learning_rate =      [('tmodel_learning_rate', i) for i in       [1e-5, 3e-5]]
+tmodel_learning_rate =      [('tmodel_learning_rate', i) for i in       [1e-5, 2e-5, 3e-5, 4e-5, 5e-5, 6e-5, 7e-5, 8e-5, 9e-5, 1e-4]]
 tmodel_weight_decay =       [('tmodel_weight_decay', i) for i in        [0, 1e-5]]
 misa_learning_rate =        [('misa_learning_rate', i) for i in         [1e-5, 3e-5, 6e-5]]
 misa_weight_decay =         [('misa_weight_decay', i) for i in          [1e-5, 3e-5]]
 fusion_mode =               [('fusion_mode', i) for i in                ['sum', 'hm']]
 
-new_list = [[[]], magbert_dropout, magbert_learning_rate, tmodel_learning_rate, magbert_weight_decay, magbert_beta_shift]
+new_list = [[[]], magbert_learning_rate, tmodel_learning_rate]
 
 function = lambda all_list: reduce(lambda x, y: [i + [j] for i in x for j in y], all_list)
 all_config_list = function(new_list)

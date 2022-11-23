@@ -74,7 +74,7 @@ def get_config(parse = True, **optional_kwargs):
     parser.add_argument('--model_index', type=int, default=0)
     parser.add_argument('--num_classes', type=int, default=0)
     parser.add_argument('--mode', type=str, default='train')
-    parser.add_argument('--gpu_id', type=int, default=1)
+    parser.add_argument('--gpu_id', type=int, default=2)
     parser.add_argument('--base_model', type=str, default='magbert_model')
     parser.add_argument('--datapath', type=str, default='/home/share/sunteng/CLUE_model/datasets')
     parser.add_argument('--model_savepath', type=str, default='./checkpoints')

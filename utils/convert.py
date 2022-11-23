@@ -15,35 +15,26 @@ def to_cpu(x):
         x = x.cpu()
     return x.data
 
-'''
-def change_to_classify(y, config):
-    if config.output_size == 2:
-        return y >= 0
-
-    if config.output_size == 3:
-        y = np.where(y > 0, 2, y)
-        y = np.where(y == 0, 1, y)
-        y = np.where(y < 0, 0, y)
-        return torch.tensor(y)
-        
-    
-    if config.output_size == 7:
-        y = np.clip(y, a_min = -3., a_max = 3.)
-        return np.round(y) + 3
-'''
-
 
 def change_to_classify(y, config):
-    over_sample = []
-    over_sample2 = []
-    for i in y:
-        sig = math.sqrt(config.variance)  # 标准差δ
-        x = np.array([-3, -2, -1, 0, 1, 2, 3])
-        y_sig = np.exp(-(x - i[0].item()) ** 2 / (2 * sig ** 2)) / (math.sqrt(2 * math.pi) * sig)
-        data = y_sig / np.sum(y_sig)
-        over_sample.append(data)
-        over_sample2.append([data[0] + data[1] + data[2], data[3] + data[4] + data[5] + data[6]])
-    if config.output_size == 7:
-        return torch.tensor(over_sample)
+    if config.soft_label:
+        over_sample = []
+        over_sample2 = []
+        for i in y:
+            sig = math.sqrt(config.variance)  # 标准差δ
+            x = np.array([-3, -2, -1, 0, 1, 2, 3])
+            y_sig = np.exp(-(x - i[0].item()) ** 2 / (2 * sig ** 2)) / (math.sqrt(2 * math.pi) * sig)
+            data = y_sig / np.sum(y_sig)
+            over_sample.append(data)
+            over_sample2.append([data[0] + data[1] + data[2], data[3] + data[4] + data[5] + data[6]])
+        if config.output_size == 7:
+            return torch.tensor(over_sample)
+        else:
+            return torch.tensor(over_sample2)
     else:
-        return torch.tensor(over_sample2)
+        if config.output_size == 2:
+            return y >= 0
+        
+        if config.output_size == 7:
+            y = np.clip(y, a_min = -3., a_max = 3.)
+            return np.round(y) + 3

@@ -19,7 +19,6 @@ class Causal_Model(nn.Module):
         self.hidden_size = config.tmodel_hidden_size
         self.embedding_size = config.tmodel_embedding_size
 
-        self.size = 7
         # loss function
         if not self.config.soft_label:
             self.classify_criterion = nn.CrossEntropyLoss(reduction = "mean")
@@ -92,7 +91,7 @@ class Causal_Model(nn.Module):
             output['loss'] = 0
             return output
 
-        if self.size != 7:
+        if not self.config.soft_label:
             labels = labels.long()
         else:
             labels = labels.float()
@@ -108,7 +107,7 @@ class Causal_Model(nn.Module):
         else:
             kl_loss = 0
             
-            if self.size != 7:
+            if not self.config.soft_label:
                 o1_classify_lose = self.classify_criterion(o1_fusion, labels)
                 o2_classify_lose = self.classify_criterion(o_text, labels)
             else:
